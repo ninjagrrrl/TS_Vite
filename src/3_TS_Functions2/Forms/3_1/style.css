@@ -1,0 +1,9 @@
+.container {
+  width: 20rem;
+}
+
+p {
+  background-color: cornflowerblue;
+  border-radius: 100px;
+  width: 100%;
+}
