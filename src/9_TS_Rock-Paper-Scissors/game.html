@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+    <script type="module" src="./game.ts"></script>
+    <link rel="stylesheet" href="./game.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Rock Paper Scissors</h1>
+    </header>
+    <main>
+      <section>
+        <div class="how-many-rounds">
+          <h2>How many rounds?</h2>
+          <form>
+            <input type="radio" id="three" name="rounds" />
+            <label for="three">3</label>
+            <input type="radio" id="six" name="rounds" />
+            <label for="six">6</label>
+            <input type="radio" id="nine" name="rounds" />
+            <label for="nine">9</label>
+          </form>
+        </div>
+        <div class="score">0:0</div>
+        <div class="game-btns"></div>
+        <button class="start-new-round">Start a new round</button>
+      </section>
+    </main>
+  </body>
+</html>
