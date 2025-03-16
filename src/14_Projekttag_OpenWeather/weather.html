@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APIs Project Open Weather</title>
+    <link rel="stylesheet" href="./weather.css" />
+    <script type="module" src="./weather.ts"></script>
+  </head>
+  <body>
+    <section>
+      <div class="user-input">
+        <select name="place" id="place">
+          <option value="">Choose a place...</option>
+          <option value="berlin">Berlin</option>
+          <option value="leipzig">Leipzig</option>
+          <option value="munich">Munich</option>
+          <option value="hamburg">Hamburg</option>
+          <option value="stahnsdorf">Stahnsdorf</option>
+          <option value="cagliari">Cagliari</option>
+        </select>
+        <button class="confirm-selection">Check Weather</button>
+      </div>
+
+      <div class="weather-data-overview"></div>
+      <div class="weather-info-detail"></div>
+    </section>
+  </body>
+</html>

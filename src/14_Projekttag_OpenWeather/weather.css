@@ -1,0 +1,107 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+section {
+  min-width: 30%;
+  margin: auto 0;
+  border: 1px black solid;
+  border-radius: 5px;
+  background-color: rgba(46, 39, 39, 0.765);
+}
+
+.user-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* width: 100%; */
+}
+
+select {
+  outline-color: black;
+  font-weight: 600;
+  width: 90%;
+  margin: 1rem 0 0 0;
+  height: 2rem;
+  border-radius: 5px;
+  border: rgb(0, 0, 0) 1.9px solid;
+}
+
+button {
+  width: 50%;
+  padding: 0.7rem;
+  border: white 1px solid;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  margin: 1rem 0;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  background-color: white;
+  font-weight: 600;
+  color: black;
+  transform: translateY(2px);
+  transition-duration: 0.5ms;
+}
+
+.weather-data-overview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.weather-info-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+dl {
+  min-width: 90%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+dt {
+  font-weight: bold;
+  grid-column: 1;
+  border: black 1px solid;
+  border-right: none;
+  border-bottom: none;
+  padding: 10px;
+}
+
+dd {
+  grid-column: 2;
+  margin: 0;
+  border: black 1px solid;
+  border-left: none;
+  border-bottom: none;
+  display: flex;
+  justify-content: right;
+  padding-right: 10px;
+  align-items: center;
+}
+
+dd:nth-child(16) {
+  border-bottom: black 1px solid;
+}
+
+dt:nth-child(15) {
+  border-bottom: black 1px solid;
+}
