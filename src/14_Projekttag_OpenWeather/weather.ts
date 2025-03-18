@@ -1,83 +1,71 @@
-const linkBerlinWeather =
-  "https://api.openweathermap.org/data/2.5/weather?q=berlin,DE&appid=bea16468a8e0aff76d6822fa3a99447e&units=metric";
+const apiKey = "bea16468a8e0aff76d6822fa3a99447e";
+const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 
-const linkLeipzigWeather =
-  "https://api.openweathermap.org/data/2.5/weather?lat=51.3406321&lon=12.3747329&appid=bea16468a8e0aff76d6822fa3a99447e&units=metric";
-
-const linkMunichWeather =
-  "https://api.openweathermap.org/data/2.5/weather?q=munich,DE&appid=bea16468a8e0aff76d6822fa3a99447e&units=metric";
-
-const linkHamburgWeather =
-  "https://api.openweathermap.org/data/2.5/weather?q=hamburg,DE&appid=bea16468a8e0aff76d6822fa3a99447e&units=metric";
-
-const linkStahnsdorfWeather =
-  "https://api.openweathermap.org/data/2.5/weather?q=stahnsdorf,DE&appid=bea16468a8e0aff76d6822fa3a99447e&units=metric";
-
-const linkCagliariWeather =
-  "https://api.openweathermap.org/data/2.5/weather?q=cagliari,IT&appid=bea16468a8e0aff76d6822fa3a99447e&units=metric";
-
+const cityInput = document.querySelector<HTMLInputElement>("#cityInput");
 const confirmSelectionButton =
   document.querySelector<HTMLButtonElement>(".confirm-selection");
-const citySelect = document.querySelector<HTMLSelectElement>("#place");
 
 confirmSelectionButton?.addEventListener("click", () => {
-  if (citySelect) {
-    const selectedCity = citySelect.value;
-
-    if (selectedCity) {
-      fetchWeatherOfPlace(selectedCity);
-    }
+  if (cityInput && cityInput.value) {
+    fetchWeatherOfPlace(cityInput.value);
   } else {
-    console.log("Please choose a place.");
+    console.log("Please enter a city name.");
   }
 });
 
 function fetchWeatherOfPlace(city: string) {
-  const placeURLs: { [key: string]: string } = {
-    berlin: linkBerlinWeather,
-    leipzig: linkLeipzigWeather,
-    munich: linkMunichWeather,
-    hamburg: linkHamburgWeather,
-    stahnsdorf: linkStahnsdorfWeather,
-    cagliari: linkCagliariWeather,
-  };
+  const url = `${baseUrl}?q=${city}&appid=${apiKey}&units=metric`;
+
   console.log(`Fetching weather for ${city}`);
 
-  const url = placeURLs[city.toLowerCase()];
-  if (url) {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        // # daten aus API-antwort extrahieren
-        const city = data.name;
-        const country = data.sys.country;
-        const icon = data.weather[0].icon;
-        const temperature = data.main.temp;
-        const description = data.weather[0].description;
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
 
-        displayWeatherOverview(city, country, icon, temperature, description);
+    .then((data) => {
+      // # daten aus API-antwort extrahieren
+      const city = data.name;
+      const country = data.sys.country;
+      const icon = data.weather[0].icon;
+      const temperature = data.main.temp;
+      const description = data.weather[0].description;
 
-        const localTime = data.timezone;
-        const windSpeed = data.wind.speed;
-        const cloudiness = data.clouds.all;
-        const pressure = data.main.pressure;
-        const humidity = data.main.humidity;
-        const sunrise = data.sys.sunrise;
-        const sunset = data.sys.sunset;
-        const geoCoords = data.coord;
+      displayWeatherOverview(city, country, icon, temperature, description);
 
-        displayWeatherDetails(
-          localTime,
-          windSpeed,
-          cloudiness,
-          pressure,
-          humidity,
-          sunrise,
-          sunset,
-          geoCoords
-        );
-      });
-  }
+      const localTime = data.timezone;
+      const windSpeed = data.wind.speed;
+      const cloudiness = data.clouds.all;
+      const pressure = data.main.pressure;
+      const humidity = data.main.humidity;
+      const sunrise = data.sys.sunrise;
+      const sunset = data.sys.sunset;
+      const geoCoords = data.coord;
+
+      displayWeatherDetails(
+        localTime,
+        windSpeed,
+        cloudiness,
+        pressure,
+        humidity,
+        sunrise,
+        sunset,
+        geoCoords
+      );
+    })
+
+    .catch((error) => {
+      console.error("Fetch error:", error);
+      const weatherContainerOverview = document.querySelector<HTMLDivElement>(
+        ".weather-data-overview"
+      );
+      if (weatherContainerOverview) {
+        weatherContainerOverview.innerHTML = `<p>Error: Could not fetch weather data for ${city}. Please try again.</p>`;
+      }
+    });
 }
 
 function displayWeatherOverview(
@@ -127,7 +115,7 @@ function displayWeatherOverview(
 function displayWeatherDetails(
   localTime: number,
   windSpeed: number,
-  cloudiness: string,
+  cloudiness: number,
   pressure: number,
   humidity: number,
   sunrise: number,
@@ -140,10 +128,9 @@ function displayWeatherDetails(
   if (weatherContainerDetail) {
     weatherContainerDetail.innerText = "";
 
-    // Berechne die Stadtzeit basierend auf der Zeitzone
     const currentTime = new Date();
-    const localOffset = currentTime.getTimezoneOffset() * 60000; // Offset in Millisekunden
-    const cityTime = new Date(Date.now() + localTime * 1000 - localOffset); // Stadtzeit
+    const localOffset = currentTime.getTimezoneOffset() * 60000;
+    const cityTime = new Date(Date.now() + localTime * 1000 - localOffset);
 
     const detailsList = document.createElement("dl");
     detailsList.innerHTML = `
@@ -152,7 +139,7 @@ function displayWeatherDetails(
   <dt>Wind Speed:</dt>
   <dd>${windSpeed}m/s</dd>
   <dt>Cloudiness:</dt>
-  <dd>${cloudiness}</dd>
+  <dd>${cloudiness}%</dd>
   <dt>Pressure:</dt>
   <dd>${pressure}hpa</dd>
   <dt>Humidity:</dt>
@@ -169,8 +156,6 @@ function displayWeatherDetails(
   }
 }
 
-function getLeipzigWeather() {
-  fetchWeatherOfPlace("leipzig");
-}
-
-document.addEventListener("DOMContentLoaded", getLeipzigWeather);
+document.addEventListener("DOMContentLoaded", () => {
+  fetchWeatherOfPlace("Leipzig");
+});

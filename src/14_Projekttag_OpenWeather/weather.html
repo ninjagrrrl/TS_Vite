@@ -8,22 +8,16 @@
     <script type="module" src="./weather.ts"></script>
   </head>
   <body>
-    <section>
-      <div class="user-input">
-        <select name="place" id="place">
-          <option value="">Choose a place...</option>
-          <option value="berlin">Berlin</option>
-          <option value="leipzig">Leipzig</option>
-          <option value="munich">Munich</option>
-          <option value="hamburg">Hamburg</option>
-          <option value="stahnsdorf">Stahnsdorf</option>
-          <option value="cagliari">Cagliari</option>
-        </select>
-        <button class="confirm-selection">Check Weather</button>
-      </div>
+    <div class="color-wrapper">
+      <section>
+        <div class="user-input">
+          <input type="text" id="cityInput" placeholder="Enter city name..." />
+          <button class="confirm-selection">Check Weather</button>
+        </div>
 
-      <div class="weather-data-overview"></div>
-      <div class="weather-info-detail"></div>
-    </section>
+        <div class="weather-data-overview"></div>
+        <div class="weather-info-detail"></div>
+      </section>
+    </div>
   </body>
 </html>

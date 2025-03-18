@@ -1,16 +1,39 @@
+@font-face {
+  font-family: "Poppins Medium";
+  src: url(./assets/fonts/Poppins/Poppins-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins Light";
+  src: url(./assets/fonts/Poppins/Poppins-Light.ttf) format("truetype");
+}
+
+img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 body {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  font-family: "Poppins Medium";
+  background-color: rgb(100, 148, 237);
 }
-section {
-  min-width: 30%;
+
+.color-wrapper {
+  width: 90%;
+  background-color: rgba(235, 142, 142, 0.946);
+}
+
+.section-wrapper {
+  min-width: 35%;
   margin: auto 0;
-  border: 1px black solid;
+  /* border: 0.5px black solid; */
   border-radius: 5px;
-  background-color: rgba(46, 39, 39, 0.765);
 }
 
 .user-input {
@@ -18,17 +41,22 @@ section {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* width: 100%; */
+  width: inherit;
 }
 
-select {
+input {
   outline-color: black;
   font-weight: 600;
-  width: 90%;
+  width: inherit;
   margin: 1rem 0 0 0;
   height: 2rem;
   border-radius: 5px;
   border: rgb(0, 0, 0) 1.9px solid;
+}
+
+::placeholder {
+  color: black;
+  font-family: "Poppins Light";
 }
 
 button {
@@ -39,6 +67,7 @@ button {
   background-color: black;
   color: white;
   margin: 1rem 0;
+  font-family: "Poppins Light";
 }
 
 button:hover {
@@ -47,10 +76,15 @@ button:hover {
 
 button:active {
   background-color: white;
-  font-weight: 600;
+  font-family: "Poppins Medium";
   color: black;
+  border: black 1.5px solid;
   transform: translateY(2px);
   transition-duration: 0.5ms;
+}
+
+h2 {
+  text-transform: uppercase;
 }
 
 .weather-data-overview {
@@ -69,6 +103,7 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Poppins Light";
 }
 
 dl {
@@ -80,7 +115,7 @@ dl {
 dt {
   font-weight: bold;
   grid-column: 1;
-  border: black 1px solid;
+  border: black 0.5px solid;
   border-right: none;
   border-bottom: none;
   padding: 10px;
@@ -89,7 +124,7 @@ dt {
 dd {
   grid-column: 2;
   margin: 0;
-  border: black 1px solid;
+  border: black 0.5px solid;
   border-left: none;
   border-bottom: none;
   display: flex;
@@ -99,9 +134,9 @@ dd {
 }
 
 dd:nth-child(16) {
-  border-bottom: black 1px solid;
+  border-bottom: black 0.5px solid;
 }
 
 dt:nth-child(15) {
-  border-bottom: black 1px solid;
+  border-bottom: black 0.5px solid;
 }
